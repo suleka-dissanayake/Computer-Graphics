@@ -15,13 +15,6 @@ public class DDAlgorithm extends JFrame {
         drawPanel = new DrawPanel();
         add(drawPanel);
 
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                drawPanel.drawMATH(e.getX(), e.getY());
-            }
-        });
-
         setVisible(true);
     }
 
@@ -30,11 +23,15 @@ public class DDAlgorithm extends JFrame {
     }
 }
 
-class DrawPanel extends JPanel{
+class DrawPanel extends JPanel implements MouseListener {
     private java.util.List<Line> lines = new ArrayList<>();
 
+    public DrawPanel() {
+        addMouseListener(this);
+    }
+
     public void drawMATH(int x, int y){
-        lines.clear(); // clearing previous drawings
+        lines.clear();
 
         // Defining M
         dda(x, y, x, y + 50);
@@ -102,4 +99,14 @@ class DrawPanel extends JPanel{
             this.y2 = y2;
         }
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        drawMATH(e.getX(), e.getY());
+    }
+
+    @Override public void mousePressed(MouseEvent e) {}
+    @Override public void mouseReleased(MouseEvent e) {}
+    @Override public void mouseEntered(MouseEvent e) {}
+    @Override public void mouseExited(MouseEvent e) {}
 }
